@@ -72,9 +72,9 @@
 
 {#if next}
 	<div class="pagi">
-		<span class="pagi-button" href={last} on:click={goLast()} class:disabled={isFirstPage}>{'<'}</span>
+		<span class="pagi-button" on:click={goLast} class:disabled={isFirstPage}>{'<'}</span>
 		<span><b>{page}</b> / {PAGE_MAX}</span>
-		<span class="pagi-button" href={next} on:click={goNext()} class:disabled={isLastPage}>{'>'}</span>
+		<span class="pagi-button" on:click={goNext} class:disabled={isLastPage}>{'>'}</span>
 	</div>
 {/if}
 
