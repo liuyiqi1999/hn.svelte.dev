@@ -39,20 +39,20 @@
 	const PAGE_MAX = 10;
 
 	$: start = 1 + (page - 1) * PAGE_SIZE;
-	$: next = `/${list}/${+page + 1}`;
-	$: last = `/${list}/${+page - 1}`;
 	$: isFirstPage = page === 1;
 	$: isLastPage = page === PAGE_MAX;
+	$: next = isLastPage ? '' : `/${list}/${+page + 1}`;
+	$: last = isFirstPage ? '' : `/${list}/${+page - 1}`;
 
 	function goLast() {
 		if(page >= 2) {
-			location.assign(last);
+			window.location.href = last;
 		}
 	}
 
 	function goNext() {
 		if(page <= 9) {
-			location.assign(next);
+			window.location.href = next;
 		}
 	}
 
@@ -72,9 +72,9 @@
 
 {#if next}
 	<div class="pagi">
-		<span class="pagi-button" on:click={goLast} class:disabled={isFirstPage}>{'<'}</span>
+		<a class="pagi-button" href={last} class:disabled={isFirstPage}>{'<'}</a>
 		<span><b>{page}</b> / {PAGE_MAX}</span>
-		<span class="pagi-button" on:click={goNext} class:disabled={isLastPage}>{'>'}</span>
+		<a class="pagi-button" href={next} class:disabled={isLastPage}>{'>'}</a>
 	</div>
 {/if}
 
@@ -90,12 +90,12 @@
 	
 	.pagi-button.disabled {
 		color: #ccc;
-		border-color: #ccc;
 		cursor: not-allowed;
 	}
 	
 	.pagi-button {
 		display: block;
 		cursor: pointer;
+		text-decoration: none;
 	}
 </style>
