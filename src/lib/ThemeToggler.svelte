@@ -1,15 +1,16 @@
 <script>
 	// preserve the focus ring for keyboard users because a11y,
 	// but hide for mouse users because fugly
+	import { onMount } from 'svelte';
 	let nice = false;
 
 	let theme = 'light';
 
-	try {
-		theme = localStorage.theme;
-	} catch (e) {
-		// ignore — could be SSR, or e.g. Firefox with restrictive permissions
-	}
+	onMount(() => {
+		if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+			toggle();
+		}
+	})
 
 	const toggle = () => {
 		const { classList } = document.querySelector('html');
